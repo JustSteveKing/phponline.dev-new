@@ -1,0 +1,26 @@
+parameters:
+  paths:
+    - ./src/Domains/Publishing
+  layers:
+    - name: PublishingDomain
+      collectors:
+        - type: bool
+          must:
+            - type: className
+              regex: Domains\\Publishing\\.*
+          must_not:
+            - type: className
+              regex: Infrastructure\\Publishing\\Contracts\\.*
+    - name: App
+      collectors:
+        - type: className
+          regex: Infrastructure\\[^\\*]\\Contracts\\.*
+    - name: Laravel
+      collectors:
+        - type: className
+          regex: (Laravel|Illuminate)\\.*
+  ruleset:
+    PublishingDomain:
+      - App
+      - Contract
+      - Laravel
